@@ -1,0 +1,35 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-input {
+    padding: 2rem 10rem;
+    margin: auto;
+    border: 2px dashed #c8c8c8;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.file-input:hover {
+    cursor: pointer;
+    border: 5px solid #3A6AD6;
+}
+
+.file-input img {
+    width: 5rem;
+    height: 5rem;
+    margin: 1rem 0;
+}
+
+.file-input p {
+    padding: 0;
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3A6AD6;
+}
