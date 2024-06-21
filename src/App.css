@@ -1,3 +1,7 @@
+.App {
+  background-color: white;
+}
+
 .routes-container {
   margin-top: 8vh;
   min-height: 84vh;

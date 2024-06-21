@@ -1,15 +1,16 @@
 import "./App.css";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
-import About from "./pages/About/About";
 import Analysis from "./pages/Analysis/Analysis";
+import About from "./pages/About/About";
 
 function App() {
   return (
     <Router>
-      <>
+      <div className="App">
         <Header />
         <div className="routes-container">
           <Routes>
@@ -19,7 +20,7 @@ function App() {
           </Routes>
         </div>
         <Footer />
-      </>
+      </div>
     </Router>
   );
 }

@@ -1,10 +1,9 @@
-import React from "react";
 import "./Header.css";
 
-function Header() {
+export default function Header() {
   return (
     <div className="header">
-      <div className="header-title">Ransomware Detection</div>
+      <div className="header-title">RANsomCheck</div>
       <div className="header-options">
         <a className="header-option" href="/">Home</a>
         <a className="header-option" href="/analysis">Analysis</a>
@@ -13,5 +12,3 @@ function Header() {
     </div>
   );
 }
-
-export default Header;

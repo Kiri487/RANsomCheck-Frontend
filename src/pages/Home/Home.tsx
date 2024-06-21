@@ -1,10 +1,9 @@
-import React from "react";
 import "./Home.css";
-import UPLOAD_FILE_ICON from "../../assets/UploadFile.png"
+import UPLOAD_FILE_ICON from "../../assets/UploadFile.png";
 
 function FileUpload() {
   return (
-    <label for="input" className="file-input">
+    <label htmlFor="input" className="file-input">
       <input hidden id="input" type="file" />
       <img src={UPLOAD_FILE_ICON} />
       <p>Upload File</p>
@@ -12,12 +11,10 @@ function FileUpload() {
   );
 }
 
-function Home() {
+export default function Home() {
   return (
     <div className="home">
       <FileUpload />
     </div>
   );
 }
-
-export default Home;
