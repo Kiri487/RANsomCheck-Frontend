@@ -8,7 +8,7 @@
 .file-input {
     padding: 2rem 10rem;
     margin: auto;
-    border: 2px dashed #c8c8c8;
+    border: 3.5px dashed #c8c8c8;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@
 
 .file-input:hover {
     cursor: pointer;
-    border: 5px solid #3A6AD6;
+    border: 3.5px solid #3A6AD6;
 }
 
 .file-input img {
@@ -32,4 +32,13 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #3A6AD6;
+}
+
+.home-directions {
+    font-weight: bold;
+    color: #3A6AD6;
+}
+
+.home-directions li {
+    margin: 1rem 0;
 }

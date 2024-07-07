@@ -15,6 +15,10 @@ export default function Home() {
   return (
     <div className="home">
       <FileUpload />
+      <ul className="home-directions">
+        <li>Usage: Click the Upload File block above and select the file you want to analyze.</li>
+        <li>Accepted file types: Windows Portable Executable files.</li>
+      </ul>
     </div>
   );
 }
