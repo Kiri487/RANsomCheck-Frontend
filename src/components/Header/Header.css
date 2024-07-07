@@ -1,6 +1,6 @@
 .header {
     width: 100vw;
-    height: 8vh;
+    height: 9vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,14 +15,22 @@
 
 .header-title {
     padding: 0 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.header-title img {
+    height: 2.5rem;
+    margin-right: 0.3rem;
 }
 
 .header-options {
+    height: 100%;
     display: flex;
 }
 
 .header-option {
-    height: 8vh;
+    height: 100%;
     padding: 0 1rem;
     color: white;
     text-decoration: none;
@@ -32,4 +40,5 @@
 
 .header-option:hover {
     background-color: #2e56b4;
+    color: white;
 }
