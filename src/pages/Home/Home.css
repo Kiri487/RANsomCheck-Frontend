@@ -1,13 +1,6 @@
-.home {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .file-input {
     padding: 2rem 10rem;
-    margin: auto;
+    margin-top: 20vh;
     border: 3.5px dashed #c8c8c8;
     border-radius: 10px;
     display: flex;
@@ -31,12 +24,10 @@
     margin: 1rem 0;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #3A6AD6;
 }
 
 .home-directions {
     font-weight: bold;
-    color: #3A6AD6;
 }
 
 .home-directions li {

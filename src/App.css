@@ -1,3 +1,5 @@
+/* TODO: CSS separate */
+
 .App {
   background-color: white;
 }
@@ -7,5 +9,12 @@
   min-height: 84vh;
   display: flex;
   flex-direction: column;
+}
+
+.main {
+  color: #3A6AD6;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
