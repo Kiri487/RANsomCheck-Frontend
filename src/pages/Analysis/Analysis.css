@@ -1,9 +1,11 @@
-.main {
+.analysis {
+    margin: 2vh 0;
     padding: 0 5vw;
-}
-
-h3 {
-    margin-top: 5vh;
+    color: #3A6AD6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 table {

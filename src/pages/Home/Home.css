@@ -1,3 +1,11 @@
+.home {
+    color: #3A6AD6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .file-input {
     padding: 2rem 10rem;
     margin-top: 20vh;

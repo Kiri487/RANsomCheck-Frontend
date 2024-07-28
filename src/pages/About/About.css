@@ -1,0 +1,29 @@
+.about {
+    color: #3A6AD6;
+    padding: 0 10vw;
+    margin: 2vh 0;
+}
+
+h3 {
+    text-align: center;
+}
+
+.about-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.profile-img {
+    height: 3rem;
+    width: 3rem;
+    margin-right: 1rem;
+    background-color: #7298f1;
+    border-radius: 50%;
+}

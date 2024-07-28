@@ -13,7 +13,7 @@ function FileUpload() {
 
 export default function Home() {
   return (
-    <div className="main">
+    <div className="home">
       <FileUpload />
       <ul className="home-directions">
         <li>Usage: Click the Upload File block above and select the file you want to analyze.</li>

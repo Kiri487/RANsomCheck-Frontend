@@ -21,7 +21,7 @@ var testData = [
 export default function Analysis() {
   if (testData.length > 0) {
     return (
-      <div className="main">
+      <div className="analysis">
         <h3>Analyze results</h3>
         <table>
           <thead>
@@ -46,7 +46,7 @@ export default function Analysis() {
   } 
   else {
     return (
-      <div className="main">
+      <div className="analysis">
         <h3>Analyze results</h3>
         <p>No analysis result records yet.</p>
       </div>
