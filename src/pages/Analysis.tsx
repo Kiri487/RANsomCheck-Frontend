@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Table } from "antd";
+import { Table, Badge } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
 import { generateFakeDataSource } from '../FakeData';
 
@@ -18,7 +18,7 @@ const columns = [
     title: <span style={{ color: "#1677ff" }}>Name</span>,
     dataIndex: "name",
     key: "name",
-    width: '50%',
+    width: '30%',
     render: (text: string, record: any) => (
       <Link to={`/analysis/details?id=${record.id}`}>
         {text}
@@ -27,10 +27,28 @@ const columns = [
     sorter: (a: any, b: any) => a.name.localeCompare(b.name)
   },
   {
+    title: <span style={{ color: "#1677ff" }}>Upload Time</span>,
+    dataIndex: "uploadTime",
+    key: "uploadTime",
+    width: '20%',
+    sorter: (a: any, b: any) => a.uploadTime.localeCompare(b.uploadTime)
+  },
+  {
     title: <span style={{ color: "#1677ff" }}>State</span>,
     dataIndex: "state",
     key: "state",
     width: '20%',
+    render: (text: string) => (
+      <Badge
+        status={
+          text === 'Pending' ? 'default' :
+          text === 'Analyzing' ? 'processing' :
+          text === 'Finished' ? 'success' :
+          'default'
+        }
+        text={ text }
+      />
+    ),
     filters: [
       { text: 'Pending', value: 'Pending' },
       { text: 'Analyzing', value: 'Analyzing' },
@@ -54,7 +72,7 @@ const columns = [
         ) : text === 0 ? (
           "Non-ransomware"
         ) : (
-          ""
+          "N/A"
         )}
       </span>
     ),
