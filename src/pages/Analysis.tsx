@@ -1,40 +1,10 @@
 import { Link } from "react-router-dom";
 import { Table } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
+import { generateFakeDataSource } from '../FakeData';
 
 // fake data
-
-const generateFakeGUID = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-};
-
-const getFakeState = () => {
-  const states = ["Pending", "Analyzing", "Finished"];
-  const randomIndex = Math.floor(Math.random() * states.length);
-  return states[randomIndex];
-};
-
-const generateFakeDataSource = (count: number) => {
-  const data = [];
-  for (let i = 1; i <= count; i++) {
-    const state = getFakeState();
-    data.push({
-      number: i,
-      id: generateFakeGUID(),
-      name: `test_file_${i}.exe`,
-      state: state,
-      result: state === 'Finished' ? Math.floor(Math.random() * 2) : -1,
-    });
-  }
-  return data;
-};
-
 const dataSource = generateFakeDataSource(25);
-
-// fake data
 
 const columns = [
   {
@@ -84,7 +54,7 @@ const columns = [
         ) : text === 0 ? (
           "Non-ransomware"
         ) : (
-          "No result yet"
+          ""
         )}
       </span>
     ),
