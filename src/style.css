@@ -34,7 +34,7 @@ html, body {
 .routes-container {
   flex: 1;
   padding: 0 10vw;
-  padding-top: 12vh;
+  padding-top: 10vh;
   min-height: 92vh;
   display: flex;
   flex-direction: column;
@@ -50,11 +50,6 @@ html, body {
 
 .ant-menu-title-content a {
   color: #1677ff !important; 
-}
-
-.ransomware-row {
-  color: #ff4d4f;
-  font-weight: bold;
 }
 
 .about-title{

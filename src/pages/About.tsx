@@ -17,9 +17,9 @@ export default function About() {
       <Card className="about-card">
         <p>The goal of this project is to develop a deep learning-based ransomware detection model and deploy it on a website, allowing users to upload and analyze files.</p>
       </Card>
-      <h3 className="about-title"><TeamOutlined /> Team Members</h3>
+      <h3 className="about-title"><TeamOutlined /> Project Advisor</h3>
       <Row gutter={16}>
-        {people.filter(person => person.role === "Team Member").map((person, index) => (
+        {people.filter(person => person.role === "Project Advisor").map((person, index) => (
           <Col span={8} key={index}>
             <Card className="about-card">
               <Card.Meta
@@ -30,9 +30,9 @@ export default function About() {
           </Col>
         ))}
       </Row>
-      <h3 className="about-title"><TeamOutlined /> Project Advisor</h3>
+      <h3 className="about-title"><TeamOutlined /> Team Members</h3>
       <Row gutter={16}>
-        {people.filter(person => person.role === "Project Advisor").map((person, index) => (
+        {people.filter(person => person.role === "Team Member").map((person, index) => (
           <Col span={8} key={index}>
             <Card className="about-card">
               <Card.Meta

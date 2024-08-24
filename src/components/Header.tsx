@@ -9,7 +9,7 @@ type MenuItem = Required<MenuProps>["items"][number];
 const items: MenuItem[] = [
   {
     key: "home",
-    label: <Link to="/"><img src={LOGO_BLUE} alt="Logo" style={{height: "2rem", margin: "10px 5px"}}/>RANsomCheck</Link>
+    label: <Link to="/"><img src={LOGO_BLUE} alt="Logo" style={{height: "2rem", margin: "10px 0", marginRight: "5px" }}/>RANsomCheck</Link>
   },
   {
     key: "analysis",
