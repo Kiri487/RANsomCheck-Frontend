@@ -1,4 +1,4 @@
-import { Descriptions, Badge } from 'antd';
+import { Descriptions, Badge, Alert } from 'antd';
 import type { DescriptionsProps } from 'antd';
 import { generateFakeData } from '../FakeData';
 
@@ -37,6 +37,12 @@ const items: DescriptionsProps['items'] = [
       ) : data.result === 0 ? "Non-ransomware" : "N/A"
     )
   },
+  {
+    key: 'SHA256',
+    label: 'SHA256',
+		span: 3,
+    children: data.SHA256
+  },
 	{
     key: 'uploadTime',
     label: 'Upload Time',
@@ -44,9 +50,21 @@ const items: DescriptionsProps['items'] = [
     children: data.uploadTime
   },
   {
+    key: 'analysisStart',
+    label: 'Analysis Start',
+		span: 3,
+    children: data.analysisStart
+  },
+  {
+    key: 'analysisFinished',
+    label: 'Analysis Finished',
+		span: 3,
+    children: data.analysisFinished
+  },
+  {
     key: 'apiCalls',
     label: 'API Calls',
-		labelStyle: { width: '11%'},
+		labelStyle: { width: '13%'},
 		span: 3,
     children: data.apiCalls.join(', '),
   }
@@ -54,10 +72,20 @@ const items: DescriptionsProps['items'] = [
 
 export default function Details() {
 	return (
-		<Descriptions
-			title="Analysis Details" 
-			bordered 
-			items={items}
-		/>
+    <>
+      {data.result === 1 && (
+        <Alert
+          message={<span style={{ color: "#ff4d4f", fontWeight: "bold", fontSize: "1.3rem" }}>Danger</span>}
+          description={<span style={{ fontWeight: "bold", fontSize: "1.2rem" }}>Ransomware Alert! Do not open this file!</span>}
+          type="error"
+          style={{ marginBottom: "1rem" }}
+        />
+      )}
+      <Descriptions
+        title="Analysis Details" 
+        bordered 
+        items={items}
+		  />
+    </>
 	);
 }
