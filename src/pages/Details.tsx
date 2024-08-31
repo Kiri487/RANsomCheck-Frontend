@@ -12,17 +12,18 @@ const items: DescriptionsProps['items'] = [
     children: data.name
   },
   {
-    key: 'state',
-    label: 'State',
+    key: 'status',
+    label: 'Status',
     children: (
       <Badge
         status={
-          data.state === 'Pending' ? 'default' :
-          data.state === 'Analyzing' ? 'processing' :
-          data.state === 'Finished' ? 'success' :
+          data.status === 'Pending' ? 'default' :
+          data.status === 'Analyzing' ? 'processing' :
+          data.status === 'Finished' ? 'success' :
+          data.status === 'Failed' ? 'error' :
           'default'
         }
-        text={ data.state }
+        text={ data.status }
       />
     )
   },

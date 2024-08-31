@@ -31,10 +31,10 @@ const generateFakeDate = () => {
     return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
 };
 
-const generateFakeState = () => {
-    const states = ["Pending", "Analyzing", "Finished"];
-    const randomIndex = Math.floor(Math.random() * states.length);
-    return states[randomIndex];
+const generateFakeStatus = () => {
+    const status = ["Pending", "Analyzing", "Finished", "Failed"];
+    const randomIndex = Math.floor(Math.random() * status.length);
+    return status[randomIndex];
 };
 
 const generateFakeAPICalls = (count: number) => {
@@ -61,17 +61,17 @@ const generateFakeAPICalls = (count: number) => {
 
 export const generateFakeData = () => {
     const id = generateFakeGUID();
-    const state = generateFakeState();
+    const status = generateFakeStatus();
     return {
       id: id,
       name: `test_file_${id.split("-")[0]}.exe`,
       SHA256: generateFakeSHA256(),
       uploadTime: generateFakeDate(),
-      analysisStart: state === "Pending" ? "N/A" : generateFakeDate(),
-      analysisFinished: state === "Finished" ? generateFakeDate() : "N/A",
-      state: state,
-      result: state === "Finished" ? Math.floor(Math.random() * 2) : -1,
-      apiCalls: state === "Finished" ? generateFakeAPICalls(100) : ["N/A"]
+      analysisStart: status === "Pending" ? "N/A" : generateFakeDate(),
+      analysisFinished: status === "Finished" ? generateFakeDate() : "N/A",
+      status: status,
+      result: status === "Finished" ? Math.floor(Math.random() * 2) : -1,
+      apiCalls: status === "Finished" ? generateFakeAPICalls(100) : ["N/A"]
     };
 };
 

@@ -34,9 +34,9 @@ const columns = [
     sorter: (a: any, b: any) => a.uploadTime.localeCompare(b.uploadTime)
   },
   {
-    title: <span style={{ color: "#1677ff" }}>State</span>,
-    dataIndex: "state",
-    key: "state",
+    title: <span style={{ color: "#1677ff" }}>Status</span>,
+    dataIndex: "status",
+    key: "status",
     width: '20%',
     render: (text: string) => (
       <Badge
@@ -44,6 +44,7 @@ const columns = [
           text === 'Pending' ? 'default' :
           text === 'Analyzing' ? 'processing' :
           text === 'Finished' ? 'success' :
+          text === 'Failed' ? 'error' :
           'default'
         }
         text={ text }
@@ -52,10 +53,11 @@ const columns = [
     filters: [
       { text: 'Pending', value: 'Pending' },
       { text: 'Analyzing', value: 'Analyzing' },
-      { text: 'Finished', value: 'Finished' }
+      { text: 'Finished', value: 'Finished' },
+      { text: 'Failed', value: 'Failed' }
     ],
-    onFilter: (value: any, record: any) => record.state === value,
-    sorter: (a: any, b: any) => a.state.localeCompare(b.state)
+    onFilter: (value: any, record: any) => record.status === value,
+    sorter: (a: any, b: any) => a.status.localeCompare(b.status)
   },
   {
     title: <span style={{ color: "#1677ff" }}>Result</span>,
