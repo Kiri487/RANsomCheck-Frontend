@@ -1,78 +1,138 @@
-import { Descriptions, Badge, Alert } from 'antd';
-import type { DescriptionsProps } from 'antd';
-import { generateFakeData } from '../FakeData';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { message, Descriptions, Badge, Alert } from "antd";
+import type { DescriptionsProps } from "antd";
 
-// fake data
-const data = generateFakeData();
-
-const items: DescriptionsProps['items'] = [
-  {
-    key: 'name',
-    label: 'Name',
-    children: data.name
-  },
-  {
-    key: 'status',
-    label: 'Status',
-    children: (
-      <Badge
-        status={
-          data.status === 'Pending' ? 'default' :
-          data.status === 'Analyzing' ? 'processing' :
-          data.status === 'Finished' ? 'success' :
-          data.status === 'Failed' ? 'error' :
-          'default'
-        }
-        text={ data.status }
-      />
-    )
-  },
-  {
-    key: 'result',
-    label: 'Result',
-    children: (
-      data.result === 1 ? (
-        <span style={{ color: "#ff4d4f", fontWeight: "bold" }}>
-          Ransomware
-        </span>
-      ) : data.result === 0 ? "Non-ransomware" : "N/A"
-    )
-  },
-  {
-    key: 'SHA256',
-    label: 'SHA256',
-		span: 3,
-    children: data.SHA256
-  },
-	{
-    key: 'uploadTime',
-    label: 'Upload Time',
-		span: 3,
-    children: data.uploadTime
-  },
-  {
-    key: 'analysisStart',
-    label: 'Analysis Start',
-		span: 3,
-    children: data.analysisStart
-  },
-  {
-    key: 'analysisFinished',
-    label: 'Analysis Finished',
-		span: 3,
-    children: data.analysisFinished
-  },
-  {
-    key: 'apiCalls',
-    label: 'API Calls',
-		labelStyle: { width: '13%'},
-		span: 3,
-    children: data.apiCalls.join(', '),
-  }
-];
+interface LogData {
+  id: string;
+  name: string;
+  status: string;
+  result: number;
+  sha256: string;
+  uploadTime: string;
+  analysisStart: string;
+  analysisCompleted: string;
+  apiCalls: string[];
+}
 
 export default function Details() {
-	return (
+  const [data, setData] = useState<LogData | null>(null);
+  const location = useLocation();
+  const trackerId = new URLSearchParams(location.search).get("id");
+
+  useEffect(() => {
+    const fetchLog = async () => {
+      try {
+        const response = await fetch(`/api/log/${trackerId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch log data");
+        }
+
+        const result = await response.json();
+
+        var status = result.current_status;
+        if (status === "File uploaded" || status === "Cuckoo uploaded") {
+          status = "Pending";
+        } else if (status === "Cuckoo analyzing" || status === "Cuckoo completed" || status === "Model uploaded") {
+          status = "Analyzing";
+        }
+
+        const data: LogData = {
+          id: trackerId || "",
+          name: result.file_name,
+          status: status,
+          result: result.result,
+          sha256: result.sha256,
+          uploadTime: result.upload_flow.start_time,
+          analysisStart: result.cuckoo_flow.start_time,
+          analysisCompleted: result.model_flow.end_time,
+          apiCalls: result.apiCalls || [],
+        };
+
+        setData(data);
+
+      } catch (error) {
+        message.error("Error fetching log data.");
+      }
+    };
+
+    if (trackerId) {
+      fetchLog();
+    }
+  }, [trackerId]);
+
+  if (!data) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>Data not found.</div>
+    );
+  }
+
+  const items: DescriptionsProps["items"] = [
+    {
+      key: "name",
+      label: "Name",
+      children: data.name,
+    },
+    {
+      key: "status",
+      label: "Status",
+      children: (
+        <Badge
+          status={
+            data.status === "Analyzing" ? "processing" :
+            data.status === "Completed" ? "success" :
+            data.status === "Failed" ? "error" :
+            "default"
+          }
+          text={ data.status }
+        />
+      ),
+    },
+    {
+      key: "result",
+      label: "Result",
+      children: (
+        data.result === 1 ? (
+          <span style={{ color: "#ff4d4f", fontWeight: "bold" }}>
+            Ransomware
+          </span>
+        ) : data.result === 0 ? "Non-ransomware" : "N/A"
+      ),
+    },
+    {
+      key: "SHA256",
+      label: "SHA256",
+      span: 3,
+      children: data.sha256,
+    },
+    {
+      key: "uploadTime",
+      label: "Upload Time",
+      span: 3,
+      children: data.uploadTime,
+    },
+    {
+      key: "analysisStart",
+      label: "Analysis Start",
+      span: 3,
+      children: data.analysisStart,
+    },
+    {
+      key: "analysisCompleted",
+      label: "Analysis Completed",
+      span: 3,
+      children: data.analysisCompleted,
+    },
+    {
+      key: "apiCalls",
+      label: "API Calls",
+      labelStyle: { width: "15%" },
+      span: 3,
+      children: data.apiCalls.join(", "),
+    }
+  ];
+
+  return (
     <>
       {data.result === 1 && (
         <Alert
@@ -82,11 +142,7 @@ export default function Details() {
           style={{ marginBottom: "1rem" }}
         />
       )}
-      <Descriptions
-        title="Analysis Details" 
-        bordered 
-        items={items}
-		  />
+      <Descriptions title="Analysis Details" bordered items={items} />
     </>
-	);
+  );
 }

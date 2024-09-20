@@ -32,7 +32,7 @@ const generateFakeDate = () => {
 };
 
 const generateFakeStatus = () => {
-    const status = ["Pending", "Analyzing", "Finished", "Failed"];
+    const status = ["Pending", "Analyzing", "Completed", "Failed"];
     const randomIndex = Math.floor(Math.random() * status.length);
     return status[randomIndex];
 };
@@ -68,10 +68,10 @@ export const generateFakeData = () => {
       SHA256: generateFakeSHA256(),
       uploadTime: generateFakeDate(),
       analysisStart: status === "Pending" ? "N/A" : generateFakeDate(),
-      analysisFinished: status === "Finished" ? generateFakeDate() : "N/A",
+      analysisCompleted: status === "Completed" ? generateFakeDate() : "N/A",
       status: status,
-      result: status === "Finished" ? Math.floor(Math.random() * 2) : -1,
-      apiCalls: status === "Finished" ? generateFakeAPICalls(100) : ["N/A"]
+      result: status === "Completed" ? Math.floor(Math.random() * 2) : -1,
+      apiCalls: status === "Completed" ? generateFakeAPICalls(100) : ["N/A"]
     };
 };
 

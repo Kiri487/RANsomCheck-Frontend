@@ -1,24 +1,30 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Table, Badge } from "antd";
+import { message, Table, Badge } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
-import { generateFakeDataSource } from '../FakeData';
 
-// fake data
-const dataSource = generateFakeDataSource(25);
+interface LogData {
+  id: string;
+  number: number;
+  name: string;
+  uploadTime: string;
+  status: string;
+  result: number;
+}
 
 const columns = [
   {
     title: <span style={{ color: "#1677ff" }}>No.</span>,
     dataIndex: "number",
     key: "number",
-    width: '10%',
+    width: "10%",
     sorter: (a: any, b: any) => a.number - b.number
   },
   {
     title: <span style={{ color: "#1677ff" }}>Name</span>,
     dataIndex: "name",
     key: "name",
-    width: '30%',
+    width: "30%",
     render: (text: string, record: any) => (
       <Link to={`/analysis/details?id=${record.id}`}>
         {text}
@@ -30,31 +36,30 @@ const columns = [
     title: <span style={{ color: "#1677ff" }}>Upload Time</span>,
     dataIndex: "uploadTime",
     key: "uploadTime",
-    width: '20%',
+    width: "20%",
     sorter: (a: any, b: any) => a.uploadTime.localeCompare(b.uploadTime)
   },
   {
     title: <span style={{ color: "#1677ff" }}>Status</span>,
     dataIndex: "status",
     key: "status",
-    width: '20%',
+    width: "20%",
     render: (text: string) => (
       <Badge
         status={
-          text === 'Pending' ? 'default' :
-          text === 'Analyzing' ? 'processing' :
-          text === 'Finished' ? 'success' :
-          text === 'Failed' ? 'error' :
-          'default'
+          text === "Analyzing" ? "processing" :
+          text === "Completed" ? "success" :
+          text === "Failed" ? "error" :
+          "default"
         }
         text={ text }
       />
     ),
     filters: [
-      { text: 'Pending', value: 'Pending' },
-      { text: 'Analyzing', value: 'Analyzing' },
-      { text: 'Finished', value: 'Finished' },
-      { text: 'Failed', value: 'Failed' }
+      { text: "Pending", value: "Pending" },
+      { text: "Analyzing", value: "Analyzing" },
+      { text: "Completed", value: "Completed" },
+      { text: "Failed", value: "Failed" }
     ],
     onFilter: (value: any, record: any) => record.status === value,
     sorter: (a: any, b: any) => a.status.localeCompare(b.status)
@@ -63,7 +68,7 @@ const columns = [
     title: <span style={{ color: "#1677ff" }}>Result</span>,
     dataIndex: "result",
     key: "result",
-    width: '20%',
+    width: "20%",
     render: (text: number) => (
       <span>
         {text === 1 ? (
@@ -74,13 +79,13 @@ const columns = [
         ) : text === 0 ? (
           "Non-ransomware"
         ) : (
-          "N/A"
+          ""
         )}
       </span>
     ),
     filters: [
-      { text: 'Ransomware', value: 1 },
-      { text: 'Non-ransomware', value: 0 }
+      { text: "Ransomware", value: 1 },
+      { text: "Non-ransomware", value: 0 }
     ],
     onFilter: (value: any, record: any) => record.result === value,
     sorter: (a: any, b: any) => a.result - b.result
@@ -88,6 +93,51 @@ const columns = [
 ];
 
 export default function Analysis() {
+  const [dataSource, setDataSource] = useState<LogData[]>([]);
+
+  const fetchLogs = async () => {
+    const trackerIdList = JSON.parse(localStorage.getItem("trackerIdList") || "[]");
+    
+    try {
+      const data: LogData[] = await Promise.all(
+        trackerIdList.map(async (trackerId: string, index: number) => {
+          const response = await fetch(`/api/log/${trackerId}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch log data");
+          }
+          const result = await response.json();
+
+          var status = result.current_status;
+          if (status === "File uploaded" || status === "Cuckoo uploaded") {
+            status = "Pending";
+          } else if (status === "Cuckoo analyzing" || status === "Cuckoo completed" || status === "Model uploaded") {
+            status = "Analyzing";
+          }
+
+          return {
+            id: trackerId,
+            number: index + 1,
+            name: result.file_name,
+            uploadTime: result.upload_flow.start_time,
+            status: status,
+            result: result.result
+          };
+        })
+      );
+      setDataSource(data);
+    } catch (error) {
+      message.error("Error fetching log data.");
+    }
+  };
+
+  useEffect(() => {
+    fetchLogs();
+
+    const intervalId = setInterval(fetchLogs, 60000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return(
     <Table 
       pagination={{ pageSize: 10 }} 
