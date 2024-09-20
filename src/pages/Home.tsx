@@ -5,6 +5,13 @@ import { message, Upload, Button, Modal } from "antd";
 
 const { Dragger } = Upload;
 
+const trackerIdList = JSON.parse(localStorage.getItem("trackerIdList") || "[]");
+
+function pushTrackerId(trackerId: string): void {
+  trackerIdList.push(trackerId);
+  localStorage.setItem("trackerIdList", JSON.stringify(trackerIdList));
+}
+
 export default function Home() {
 
   const [open, setOpen] = useState(false);
@@ -27,10 +34,12 @@ export default function Home() {
 
         if (response.ok) {
           onSuccess(result, file);
+          pushTrackerId(result.tracker_id);
           setModalTitle(result.message);
           showModal();
         } else {
           onError(result.error || result.message);
+          pushTrackerId(result.tracker_id);
           message.error(result.error || result.message);
         }
       } catch (error) {
