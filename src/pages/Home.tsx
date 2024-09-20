@@ -8,8 +8,10 @@ const { Dragger } = Upload;
 const trackerIdList = JSON.parse(localStorage.getItem("trackerIdList") || "[]");
 
 function pushTrackerId(trackerId: string): void {
-  trackerIdList.push(trackerId);
-  localStorage.setItem("trackerIdList", JSON.stringify(trackerIdList));
+  if (trackerId != null) {
+    trackerIdList.push(trackerId);
+    localStorage.setItem("trackerIdList", JSON.stringify(trackerIdList));
+  }
 }
 
 export default function Home() {
@@ -34,14 +36,14 @@ export default function Home() {
 
         if (response.ok) {
           onSuccess(result, file);
-          pushTrackerId(result.tracker_id);
           setModalTitle(result.message);
           showModal();
         } else {
           onError(result.error || result.message);
-          pushTrackerId(result.tracker_id);
           message.error(result.error || result.message);
         }
+        pushTrackerId(result.tracker_id);
+        
       } catch (error) {
         onError(error);
         message.error("System error occurred.");
