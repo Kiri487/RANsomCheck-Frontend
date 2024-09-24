@@ -31,22 +31,22 @@ export default function Details() {
         const result = await response.json();
 
         var status = result.current_status;
-        if (status === "File uploaded" || status === "Cuckoo uploaded") {
+        if (status === "Uploaded" || status === "Upload completed" || status === "Cuckoo uploaded" || status === "Cuckoo monitor started") {
           status = "Pending";
-        } else if (status === "Cuckoo analyzing" || status === "Cuckoo completed" || status === "Model uploaded") {
+        } else if (status === "Cuckoo analyzing" || status === "Cuckoo completed" || status === "Model uploaded" || status === "Model analyzing") {
           status = "Analyzing";
-        }
+        }  
 
         const data: LogData = {
           id: trackerId || "",
           name: result.file_name,
           status: status,
           result: result.result,
-          sha256: result.sha256,
+          sha256: result.SHA256,
           uploadTime: result.upload_flow.start_time,
           analysisStart: result.cuckoo_flow.start_time,
           analysisCompleted: result.model_flow.end_time,
-          apiCalls: result.apiCalls || [],
+          apiCalls: result["API calls"] || [],
         };
 
         setData(data);
@@ -96,7 +96,7 @@ export default function Details() {
           <span style={{ color: "#ff4d4f", fontWeight: "bold" }}>
             Ransomware
           </span>
-        ) : data.result === 0 ? "Non-ransomware" : "N/A"
+        ) : data.result === 0 ? "Non-ransomware" : ""
       ),
     },
     {

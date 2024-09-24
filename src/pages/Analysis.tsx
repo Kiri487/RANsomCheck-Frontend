@@ -108,11 +108,11 @@ export default function Analysis() {
           const result = await response.json();
 
           var status = result.current_status;
-          if (status === "File uploaded" || status === "Cuckoo uploaded") {
+          if (status === "Uploaded" || status === "Upload completed" || status === "Cuckoo uploaded" || status === "Cuckoo monitor started") {
             status = "Pending";
-          } else if (status === "Cuckoo analyzing" || status === "Cuckoo completed" || status === "Model uploaded") {
+          } else if (status === "Cuckoo analyzing" || status === "Cuckoo completed" || status === "Model uploaded" || status === "Model analyzing") {
             status = "Analyzing";
-          }
+          }    
 
           return {
             id: trackerId,
