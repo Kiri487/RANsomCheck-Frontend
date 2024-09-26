@@ -41,10 +41,10 @@ export default function Details() {
           id: trackerId || "",
           name: result.file_name,
           status: status,
-          result: result.result,
+          result: result.result[0],
           sha256: result.SHA256,
           uploadTime: result.upload_flow.start_time,
-          analysisStart: result.cuckoo_flow.start_time,
+          analysisStart: result.cuckoo_flow.analysis_time,
           analysisCompleted: result.model_flow.end_time,
           apiCalls: result["API calls"] || [],
         };
@@ -58,6 +58,10 @@ export default function Details() {
 
     if (trackerId) {
       fetchLog();
+
+      const intervalId = setInterval(fetchLog, 60000);
+
+      return () => clearInterval(intervalId);
     }
   }, [trackerId]);
 

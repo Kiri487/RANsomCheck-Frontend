@@ -120,7 +120,7 @@ export default function Analysis() {
             name: result.file_name,
             uploadTime: result.upload_flow.start_time,
             status: status,
-            result: result.result
+            result: result.result[0]
           };
         })
       );
