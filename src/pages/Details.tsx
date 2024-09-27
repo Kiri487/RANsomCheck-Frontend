@@ -41,7 +41,7 @@ export default function Details() {
           id: trackerId || "",
           name: result.file_name,
           status: status,
-          result: result.result[0],
+          result: Array.isArray(result.result) && result.result.length === 1 ? result.result[0] : result.result,
           sha256: result.SHA256,
           uploadTime: result.upload_flow.start_time,
           analysisStart: result.cuckoo_flow.analysis_time,
