@@ -100,7 +100,7 @@ export default function Details() {
           <span style={{ color: "#ff4d4f", fontWeight: "bold" }}>
             Ransomware
           </span>
-        ) : data.result === 0 ? "Non-ransomware" : ""
+        ) : data.result === 0 ? "No ransomware detected" : ""
       ),
     },
     {

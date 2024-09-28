@@ -77,7 +77,7 @@ const columns = [
             Ransomware
           </span>
         ) : text === 0 ? (
-          "Non-ransomware"
+          "No ransomware detected"
         ) : (
           ""
         )}
@@ -85,7 +85,7 @@ const columns = [
     ),
     filters: [
       { text: "Ransomware", value: 1 },
-      { text: "Non-ransomware", value: 0 }
+      { text: "No ransomware detected", value: 0 }
     ],
     onFilter: (value: any, record: any) => record.result === value,
     sorter: (a: any, b: any) => a.result - b.result
