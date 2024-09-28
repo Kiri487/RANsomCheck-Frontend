@@ -36,13 +36,13 @@ export default function Home() {
 
         if (response.ok) {
           onSuccess(result, file);
+          pushTrackerId(result.tracker_id);
           setModalTitle(result.message);
           showModal();
         } else {
           onError(result.error || result.message);
           message.error(result.error || result.message);
         }
-        pushTrackerId(result.tracker_id);
         
       } catch (error) {
         onError(error);
