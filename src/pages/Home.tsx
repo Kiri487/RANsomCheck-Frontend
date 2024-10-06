@@ -70,7 +70,10 @@ export default function Home() {
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>
-        <p className="ant-upload-text">Click or drag the file you want to analyze to this area to upload</p>
+        <p className="ant-upload-text">
+          Click or drag the file you want to analyze to this area to upload.<br/>
+          Notice: The uploaded files will be used for academic research.
+        </p>
         <p className="ant-upload-hint">
           Accepted file types: Windows Portable Executable files
         </p>
